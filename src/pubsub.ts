@@ -81,6 +81,7 @@ export class AMQPPubSub implements PubSubEngine {
       typeof this.subsRefsMap[this.subscriptionMap[subId].routingKey] === 'undefined'
     ) {
       logger(`There is no subscription of id "${subId}"`);
+      return Promise.resolve();
     }
 
     const routingKey = this.subscriptionMap[subId].routingKey;
