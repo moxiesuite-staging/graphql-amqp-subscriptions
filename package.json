@@ -1,19 +1,16 @@
 {
-  "name": "graphql-amqp-subscriptions",
+  "name": "@trufflesuite/graphql-amqp-subscriptions",
   "description": "GraphQL AMQP Subscriptions",
-  "version": "1.0.6",
-  "author": "https://github.com/Surnet/graphql-amqp-subscriptions/graphs/contributors",
+  "version": "1.1.2",
+  "author": "Truffle Blockchain Group",
   "license": "MIT",
-  "homepage": "https://github.com/Surnet/graphql-amqp-subscriptions",
+  "homepage": "https://github.com/trufflesuite/graphql-amqp-subscriptions",
   "bugs": {
-    "url": "https://github.com/Surnet/graphql-amqp-subscriptions/issues"
+    "url": "https://github.com/trufflesuite/graphql-amqp-subscriptions/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Surnet/graphql-amqp-subscriptions.git"
-  },
-  "engines": {
-    "node": ">= 10"
+    "url": "https://github.com/trufflesuite/graphql-amqp-subscriptions.git"
   },
   "keywords": [
     "graphql",
@@ -29,8 +26,8 @@
   "scripts": {
     "start": "nodemon --ext js,ts,tsx,json --exec babel-node -- src/index.ts --extensions \".ts,.tsx\" --source-maps inline",
     "type-check": "tsc --noEmit",
-    "type-check:watch": "npm run type-check -- --watch",
-    "build": "npm run build:types && npm run build:js",
+    "type-check:watch": "yarn type-check -- --watch",
+    "build": "yarn build:types && yarn build:js",
     "build:types": "tsc --emitDeclarationOnly",
     "build:js": "babel src --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
     "vulnerabilities": "npm audit",
