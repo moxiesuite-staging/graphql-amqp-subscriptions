@@ -22,9 +22,6 @@ junit
 # node-waf configuration
 .lock-wscript
 
-# Source files
-src
-
 # Test files
 test
 *.test.*
