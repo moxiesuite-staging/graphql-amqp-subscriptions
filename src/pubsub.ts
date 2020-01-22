@@ -22,6 +22,8 @@ export class AMQPPubSub implements PubSubEngine {
   private unsubscribeMap: { [trigger: string]: () => PromiseLike<any> };
   private currentSubscriptionId: number;
 
+  private pendingUnsubscribes: { [trigger: string]: boolean };
+
   constructor(
     options: PubSubAMQPOptions
   ) {
@@ -38,7 +40,15 @@ export class AMQPPubSub implements PubSubEngine {
     this.publisher = new AMQPPublisher(this.connection, logger);
     this.subscriber = new AMQPSubscriber(this.connection, logger);
 
+    this.pendingUnsubscribes = {};
+
     logger('Finished initializing');
+  }
+
+  public async close() {
+    await this.unsubscribeAll();
+    await this.publisher.close();
+    await this.subscriber.close();
   }
 
   public async publish(routingKey: string, payload: any): Promise<void> {
@@ -128,9 +138,13 @@ export class AMQPPubSub implements PubSubEngine {
   }
 
   private async unsubscribeForKey(routingKey: string): Promise<void> {
-    await this.unsubscribeMap[routingKey]();
-    delete this.subsRefsMap[routingKey];
-    delete this.unsubscribeMap[routingKey];
+    if (this.pendingUnsubscribes[routingKey] !== true) {
+      this.pendingUnsubscribes[routingKey] = true;
+      await this.unsubscribeMap[routingKey]();
+      delete this.subsRefsMap[routingKey];
+      delete this.unsubscribeMap[routingKey];
+      delete this.pendingUnsubscribes[routingKey];
+    }
   }
 
 }

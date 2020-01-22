@@ -14,6 +14,12 @@ export class AMQPSubscriber {
 
   }
 
+  public async close() {
+    if (this.channel) {
+      await this.channel.close();
+    }
+  }
+
   public async subscribe(
     exchange: string,
     routingKey: string,

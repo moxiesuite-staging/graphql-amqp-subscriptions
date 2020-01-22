@@ -12,6 +12,12 @@ export class AMQPPublisher {
 
   }
 
+  public async close() {
+    if (this.channel) {
+      await this.channel.close();
+    }
+  }
+
   public async publish(exchange: string, routingKey: string, data: any): Promise<void> {
     let promise: PromiseLike<amqp.Channel>;
     if (this.channel) {
