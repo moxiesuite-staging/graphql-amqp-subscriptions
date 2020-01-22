@@ -1,7 +1,7 @@
 {
   "name": "@trufflesuite/graphql-amqp-subscriptions",
   "description": "GraphQL AMQP Subscriptions",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "author": "Truffle Blockchain Group",
   "license": "MIT",
   "homepage": "https://github.com/trufflesuite/graphql-amqp-subscriptions",
@@ -27,6 +27,7 @@
     "start": "nodemon --ext js,ts,tsx,json --exec babel-node -- src/index.ts --extensions \".ts,.tsx\" --source-maps inline",
     "type-check": "tsc --noEmit",
     "type-check:watch": "yarn type-check -- --watch",
+    "prepare": "yarn build",
     "build": "tsc",
     "vulnerabilities": "npm audit",
     "check-updates": "npm outdated",
