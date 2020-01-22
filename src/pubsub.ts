@@ -102,6 +102,13 @@ export class AMQPPubSub implements PubSubEngine {
     return Promise.resolve();
   }
 
+  public async unsubscribeAll(): Promise<void> {
+    const subscriptionKeys = Object.keys(this.unsubscribeMap);
+    await Promise.all(
+      subscriptionKeys.map(routingKey => this.unsubscribeForKey(routingKey))
+    );
+  }
+
   public asyncIterator<T>(triggers: string | string[]): AsyncIterator<T> {
     return new PubSubAsyncIterator<T>(this, triggers);
   }
